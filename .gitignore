@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+htmlcov/
+.cache
+.pytest_cache/
+.coverage
+.coverage.*
+.hypothesis/
+.nox/
+.tox/
+
+# .env
+.venv
+.ruff_cache/
+.idea/

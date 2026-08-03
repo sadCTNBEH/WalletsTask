@@ -1,0 +1,9 @@
+mypy
+ruff
+black
+pytest
+pytest_asyncio
+httpx
+aiosqlite
+pyhamcrest
+coverage
