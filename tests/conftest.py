@@ -1,6 +1,7 @@
 """Фикстуры для тестов."""
 
-from typing import AsyncGenerator, Any
+from collections.abc import AsyncGenerator
+from typing import Any
 from unittest.mock import AsyncMock
 
 import pytest
@@ -19,7 +20,25 @@ from app.models.base import Base
 from app.repository.wallet import WalletRepository
 from app.service.wallet import WalletService
 
-TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
+TEST_DATABASE_URL = 'sqlite+aiosqlite:///:memory:'
+
+@pytest.fixture
+def mock_session():
+    return AsyncMock()
+
+
+@pytest.fixture
+def mock_repository():
+    return AsyncMock()
+
+
+@pytest.fixture
+def wallet_service(mock_session, mock_repository):
+    service = WalletService(mock_session)
+    service._repository = mock_repository
+
+    return service
+
 
 @pytest_asyncio.fixture
 async def engine() -> AsyncGenerator[AsyncEngine, None]:
@@ -34,6 +53,7 @@ async def engine() -> AsyncGenerator[AsyncEngine, None]:
 
     await engine.dispose()
 
+
 @pytest_asyncio.fixture
 async def db_session(engine: AsyncEngine) -> AsyncGenerator[AsyncSession, Any]:
     """Сессия для теста."""
@@ -45,18 +65,12 @@ async def db_session(engine: AsyncEngine) -> AsyncGenerator[AsyncSession, Any]:
     async with session_factory() as session:
         yield session
 
+
 @pytest_asyncio.fixture
 async def wallet_repository(db_session: AsyncSession) -> WalletRepository:
     """Репозиторий кошельков."""
 
     return WalletRepository(db_session)
-
-
-@pytest_asyncio.fixture
-async def wallet_service(db_session: AsyncSession) -> WalletService:
-    """Сервис кошельков."""
-
-    return WalletService(db_session)
 
 
 @pytest_asyncio.fixture
@@ -73,7 +87,7 @@ async def client(db_session) -> AsyncGenerator[AsyncClient, None]:
     app.dependency_overrides[get_session] = override_get_session
 
     transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+    async with AsyncClient(transport=transport, base_url='http://test') as ac:
         yield ac
 
     app.dependency_overrides.clear()

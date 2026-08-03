@@ -17,5 +17,5 @@ app.include_router(
     prefix="/api/v1",
 )
 
-app.add_exception_handler(WalletNotFound, wallet_not_found_handler)  # type: ignore[misc]
-app.add_exception_handler(InsufficientFundsError, insufficient_funds_handler)  # type: ignore[misc]
+app.add_exception_handler(WalletNotFound, wallet_not_found_handler)  # type: ignore[arg-type]
+app.add_exception_handler(InsufficientFundsError, insufficient_funds_handler)  # type: ignore[arg-type]
