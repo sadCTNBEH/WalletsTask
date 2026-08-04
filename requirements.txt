@@ -1,8 +1,8 @@
-fastapi
-uvicorn
-pydantic
-sqlalchemy
-alembic
-asyncpg
-uuid6
-psycopg2-binary
+fastapi==0.141.1
+uvicorn==0.52.1
+pydantic==2.13.4
+SQLAlchemy==2.0.51
+alembic==1.18.5
+asyncpg==0.31.0
+uuid6==2025.0.1
+psycopg2-binary==2.9.12

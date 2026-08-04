@@ -11,9 +11,6 @@ from httpx import AsyncClient
 async def test_get_wallet_balance_success(client: AsyncClient):
     create = await client.post(url="api/v1/wallet")
 
-    print("\nSTATUS:", create.status_code)
-    print("BODY:", create.json())
-
     wallet_id = create.json()["id"]
 
     response = await client.get(f"/api/v1/wallet/{wallet_id}")
