@@ -20,7 +20,8 @@ from app.models.base import Base
 from app.repository.wallet import WalletRepository
 from app.service.wallet import WalletService
 
-TEST_DATABASE_URL = 'sqlite+aiosqlite:///:memory:'
+TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
+
 
 @pytest.fixture
 def mock_session():
@@ -87,7 +88,7 @@ async def client(db_session) -> AsyncGenerator[AsyncClient, None]:
     app.dependency_overrides[get_session] = override_get_session
 
     transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url='http://test') as ac:
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
         yield ac
 
     app.dependency_overrides.clear()

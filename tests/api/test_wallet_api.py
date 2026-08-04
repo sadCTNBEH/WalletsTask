@@ -127,6 +127,7 @@ async def test_withdraw_insufficient_funds(client: AsyncClient):
         matcher=has_key("detail"),
     )
 
+
 @pytest.mark.asyncio
 async def test_operation_invalid_amount_zero(client: AsyncClient):
     create = await client.post(url="api/v1/wallet")
